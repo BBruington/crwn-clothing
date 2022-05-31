@@ -4,15 +4,15 @@ import {
     getAuth, 
     signInWithRedirect, 
     signInWithPopup, 
-    GoogleAuthProvider,
-    ProviderId, 
+    GoogleAuthProvider, 
+    createUserWithEmailAndPassword, 
 } from 'firebase/auth';
 
 import {
     getFirestore, 
     doc, //allows you to retrieve docs from firestorm database
-    getDoc, 
-    setDoc,    
+    getDoc, //get data
+    setDoc,    // set data
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -22,54 +22,74 @@ const firebaseConfig = {
     storageBucket: "crwn-clothing-db-d2dbc.appspot.com",
     messagingSenderId: "906879502450",
     appId: "1:906879502450:web:e5e5ed0dfd618189579aeb"
-  };
+};
   
   // Initialize Firebase
-  const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
-  const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
   //aka you need an account to continue
-  provider.setCustomParameters({
+googleProvider.setCustomParameters({
     prompt: "select_account",
-  });
+});
 
-  export const auth = getAuth();
-  export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+//getAuth checks data from doc
+export const auth = getAuth();
 
-  export const db = getFirestore();
+export const signInWithGooglePopup = 
+() => signInWithPopup(auth, googleProvider);
 
-  export const createUserDocumentFromAuth = async (userAuth) => {
+export const signInWithGoogleRedirect = 
+() => signInWithRedirect(auth, googleProvider);
+
+export const db = getFirestore(); //used to access database
+  //points directly to app database
+
+export const createUserDocumentFromAuth = async (
+      userAuth, 
+      additionalInformation = {}
+) => {
+    if (!userAuth) return; 
+
     const userDocRef = doc(db, 'users', userAuth.uid);
-
+    //looks at the db, checks the users collections, then
+    //one's unique id
 
     const userSnapshot = await getDoc(userDocRef);
-
+    //getDoc checks the data of userDocRef
 
     if(!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();
+        //we know when users are signing in
 
         try {
+            //setDoc creates the data into the doc
             await setDoc(userDocRef, {
                 displayName,
                 email,
-                createdAt
+                createdAt, 
+                ...additionalInformation
             });
+
         }catch (e) {
             console.log('error creating user', e.message);
         }
     }
+
     return userDocRef;
 
     //if userdata exists 
-
     //then return userDocRef
 
-
-
     //if userdata !exists
-
     //then create / set the document with the data from userAuth
     //in my collection
-  };
+};
+
+export  const createAuthUserWithEmailAndPassword = async (email, password) => {
+    if(!email || !password) {return;}
+
+    return await createAuthUserWithEmailAndPassword(auth, email, password)
+}
