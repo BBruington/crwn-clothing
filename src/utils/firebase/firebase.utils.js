@@ -5,7 +5,8 @@ import {
     signInWithRedirect, 
     signInWithPopup, 
     GoogleAuthProvider, 
-    createUserWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword, 
 } from 'firebase/auth';
 
 import {
@@ -36,6 +37,7 @@ googleProvider.setCustomParameters({
 
 //getAuth checks data from doc
 export const auth = getAuth();
+//auth is only way to authorize permission to crud -heh-
 
 export const signInWithGooglePopup = 
 () => signInWithPopup(auth, googleProvider);
@@ -89,7 +91,13 @@ export const createUserDocumentFromAuth = async (
 };
 
 export  const createAuthUserWithEmailAndPassword = async (email, password) => {
-    if(!email || !password) {return;}
+    if(!email || !password) return;
 
-    return await createAuthUserWithEmailAndPassword(auth, email, password)
+    return await createUserWithEmailAndPassword(auth, email, password);
+}
+
+export  const signInAuthUserWithEmailAndPassword = async (email, password) => {
+    if(!email || !password) return;
+
+    return await signInWithEmailAndPassword(auth, email, password);
 }
