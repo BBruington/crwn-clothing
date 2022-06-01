@@ -12,8 +12,8 @@ import {
 import {
     getFirestore, 
     doc, //allows you to retrieve docs from firestorm database
-    getDoc, //get data
-    setDoc,    // set data
+    getDoc, //check data
+    setDoc,    // update data
 } from 'firebase/firestore'
 
 const firebaseConfig = {

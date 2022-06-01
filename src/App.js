@@ -17,7 +17,7 @@ const App = () => {
       </Route>
 
       {/* the / path routes you to the home page and <Home /> 
-      is the name of the element you are being routed to*/}      
+      is the name of the element you are being routed to by default aka index*/}      
       
     </Routes>
   );
