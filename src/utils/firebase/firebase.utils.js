@@ -2,12 +2,16 @@ import { initializeApp } from 'firebase/app';
 //you need your own config for your data
 import { 
     getAuth, 
+//this tracks the auth that
+// uses sign ins and persists it between refreshes
+
     signInWithRedirect, 
     signInWithPopup, 
     GoogleAuthProvider, 
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword, 
-    signOut
+    signOut,
+    onAuthStateChanged
 } from 'firebase/auth';
 
 import {
@@ -104,3 +108,7 @@ export  const signInAuthUserWithEmailAndPassword = async (email, password) => {
 }
 
 export const signOutUser = async () => await signOut(auth);
+
+//when auth changes aka user changes, use this callback
+export const onAuthStateChangedListener = (callback) => 
+onAuthStateChanged(auth, callback);

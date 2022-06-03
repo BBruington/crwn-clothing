@@ -8,7 +8,7 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 
-import { UserContext } from "../../contexts/user.context";
+// import { UserContext } from "../../contexts/user.context";
 //all files hooked into the context will rerun when another
 //file runs useContext aka mored hooked components = more strain
 //on performance
@@ -28,8 +28,6 @@ const SignUpForm = () => {
 
   const { displayName, email, password, confirmPassword } = formFields;
 
-    const { setCurrentUser } = useContext(UserContext)
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -46,8 +44,6 @@ const SignUpForm = () => {
         email,
         password
       );
-
-      setCurrentUser(user);
 
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
