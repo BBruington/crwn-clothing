@@ -19,7 +19,12 @@ import {
     doc, //allows you to retrieve docs from firestorm database
     getDoc, //check data
     setDoc,    // update data
-} from 'firebase/firestore'
+    collection, 
+    writeBatch, 
+    query, 
+    getDocs,
+    QuerySnapshot, 
+} from 'firebase/firestore' //what governs our database
 
 const firebaseConfig = {
     apiKey: "AIzaSyBrizqAlm9CLet5ovlVbYVQiZkUV_axKsU",
@@ -52,6 +57,36 @@ export const signInWithGoogleRedirect =
 
 export const db = getFirestore(); //used to access database
   //points directly to app database
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const collectionRef = collection(db, collectionKey);
+    const batch = writeBatch(db);
+
+                         //adding shop-data.js objects
+    objectsToAdd.forEach((object) => {
+        const docRef = doc(collectionRef, object.title.toLowerCase());
+        batch.set(docRef, object);
+        //aka set that location and set it with the value of the object
+    });
+
+    await batch.commit();
+    console.log('done');
+};
+
+export const getCategoriesAndDocuments = async () => {
+    const collectionRef = collection(db, 'catagories');
+                            //put in a db and the collection key; 'catagories'
+    const q = query(collectionRef);
+
+    const querySnapshot = await getDocs(q);
+    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+        const { title, items } = docSnapshot.data();
+        acc[title.toLowerCase()] = items;
+        return acc;
+    }, {});
+
+    return categoryMap;
+}
 
 export const createUserDocumentFromAuth = async (
       userAuth, 
