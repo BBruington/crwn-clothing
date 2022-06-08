@@ -1,7 +1,7 @@
 import { Fragment, useContext } from "react"; //useful if you don't want
 //to render a specific part of html
 
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 

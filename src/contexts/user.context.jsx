@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer } from "react";
 
-import createAction from "../utils/reducer/reducer.utils";
+import {createAction} from "../utils/reducer/reducer.utils";
 
 import {
   onAuthStateChangedListener,
@@ -16,6 +16,10 @@ export const UserContext = createContext({
 //this is storing reducer types to be used
 export const USER_ACTION_TYPES = {
   SET_CURRENT_USER: "SET_CURRENT_USER",
+};
+
+const INITIAL_STATE = {
+  currentUser: null,
 };
 
 //you can ...state to return unchanged keys/values
@@ -37,9 +41,6 @@ const userReducer = (state, action) => {
   }
 };
 
-const INITIAL_STATE = {
-  currentUser: null,
-};
 
 export const UserProvider = ({ children }) => {
   //i can immediately pull {currentUser} from state
