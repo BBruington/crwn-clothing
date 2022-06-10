@@ -23,7 +23,7 @@ import {
     writeBatch, 
     query, 
     getDocs,
-    QuerySnapshot, 
+    // QuerySnapshot, 
 } from 'firebase/firestore' //what governs our database
 
 const firebaseConfig = {

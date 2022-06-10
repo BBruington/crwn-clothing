@@ -23,7 +23,7 @@ const Category = () => {
     <Fragment>
       <CategoryTitle>{category.toUpperCase()}</CategoryTitle>
       <CategoryContainer>
-        {products && //wait until products is defined
+        {products && //aka wait until products is defined then run
           products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
