@@ -122,7 +122,7 @@ export const createUserDocumentFromAuth = async (
         }
     }
 
-    return userDocRef;
+    return userSnapshot;
 
     //if userdata exists 
     //then return userDocRef
@@ -149,3 +149,16 @@ export const signOutUser = async () => await signOut(auth);
 //when auth changes aka user changes, use this callback
 export const onAuthStateChangedListener = (callback) => 
 onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        );
+    });
+};
