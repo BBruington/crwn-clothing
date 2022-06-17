@@ -1,6 +1,6 @@
-import { useSelector, useDispatch } from "react-redux/es/exports.js";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 
-import { selectCartItems } from "../../store/cart/cart.selector.js";
+import { selectCartItems } from "../../store/cart/cart.selector";
 import {
   addItemToCart,
   clearItemFromCart,
