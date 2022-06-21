@@ -17,7 +17,7 @@ import {
   Arrow,
   Value,
   RemoveButton,
-} from "./checkout-item.styles.jsx";
+} from "./checkout-item.styles";
 
 import { CartItem } from '../../store/cart/cart.types';
 
