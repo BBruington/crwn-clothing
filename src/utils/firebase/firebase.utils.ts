@@ -83,7 +83,7 @@ type CategoryData = {
 };
 
 export const getCategoriesAndDocuments = async (): Promise<CategoryData[]> => {
-  const collectionRef = collection(db, 'categories');
+  const collectionRef = collection(db, 'catagories');
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);

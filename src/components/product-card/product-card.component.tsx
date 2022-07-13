@@ -20,8 +20,8 @@ type ProductCardProps = {
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { name, price, imageUrl } = product;
-  const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
 
   const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
 
@@ -36,7 +36,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         buttonType={BUTTON_TYPE_CLASSES.inverted}
         onClick={addProductToCart}
       >
-        Add to cart
+        Add to card
       </Button>
     </ProductCartContainer>
   );
